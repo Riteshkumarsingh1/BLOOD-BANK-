@@ -1,0 +1,16 @@
+# Ignore VS Code settings folder
+.vscode/
+
+# Ignore Node.js modules folder
+node_modules/
+
+# Ignore git files
+.git/
+
+# Ignore logs and temp files
+*.log
+*.tmp
+
+# Ignore any other files/folders you don't want to push
+.DS_Store
+Thumbs.db

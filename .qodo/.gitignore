@@ -1,0 +1,26 @@
+# Ignore Visual Studio Code settings folder
+.vscode/
+
+# Ignore clasp configuration files (if you don't want them in repo)
+.clasp.json
+.clasprc.json
+
+# Ignore OS system files
+.DS_Store
+Thumbs.db
+
+# Ignore log and executable files
+*.log
+*.exe
+
+# Ignore user data and temp folders
+AppData/
+OneDrive/
+Downloads/
+Music/
+Pictures/
+
+# Ignore other typical unwanted folders/files
+node_modules/
+*.bak
+*.tmp
