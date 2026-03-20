@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RUDHIRA (Blood) Portal</title>
+  <base target="_top">
+  <style>
+    /* Your existing styles remain unchanged */
+    :root {
+      --red-dark: #8b0000;
+      --red-light: #ff6a6a;
+      --bg-dark: #1a0000;
+      --bg-light: #fff;
+      --text-dark: #fbeaea;
+      --text-light: #333;
+    }
+
+    body, html {
+      margin: 0; padding: 0; height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+      position: relative;
+      overflow-x: hidden;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+
+    .dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .light-mode {
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    .background-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url('https://images.unsplash.com/photo-1588776814546-c6b297f2d566?auto=format&fit=crop&w=1470&q=80');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      opacity: 0.4;
+      filter: brightness(0.5);
+      pointer-events: none;
+      z-index: -1;
+      transition: opacity 0.5s ease;
+    }
+    .light-mode .background-overlay {
+      opacity: 0;
+    }
+
+    header {
+      background-color: rgba(139, 0, 0, 0.85);
+      padding: 18px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      box-shadow: 0 4px 12px rgba(185, 0, 0, 0.7);
+      border-bottom: 3px solid var(--red-dark);
+      z-index: 10;
+      transition: background-color 0.5s ease;
+    }
+
+    .light-mode header {
+      background-color: #f44336;
+      border-bottom-color: #d32f2f;
+      box-shadow: 0 4px 12px rgba(244, 67, 54, 0.7);
+    }
+
+    header h1 {
+      font-weight: 900;
+      font-size: 1.9rem;
+      color: var(--red-light);
+      letter-spacing: 2px;
+      font-style: italic;
+      text-shadow: 0 0 10px var(--red-dark);
+      transition: color 0.5s ease;
+    }
+
+    .light-mode header h1 {
+      color: #ffebee;
+      text-shadow: none;
+    }
+
+    nav a {
+      color: #f7c8c8;
+      text-decoration: none;
+      font-size: 1.15rem;
+      margin-left: 28px;
+      padding: 6px 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      background: linear-gradient(to right, #ff2d2d90, #ff5a5a80);
+      box-shadow: 0 0 6px rgb(255 0 0 / 65%);
+      transition: all 0.3s ease;
+      user-select: none;
+      position: relative;
+      z-index: 10;
+      cursor: pointer;
+    }
+
+    nav a:hover, nav a.active {
+      color: #fff;
+      text-shadow: 0 0 16px #f54242;
+      background: linear-gradient(45deg, #ff0000bf, #ff5656cf);
+      box-shadow: 0 0 15px #ff2c2c;
+    }
+
+    .light-mode nav a {
+      color: #fff;
+      background: linear-gradient(to right, #e57373cc, #ef9a9acc);
+      box-shadow: 0 0 7px rgba(244, 67, 54, 0.7);
+    }
+
+    .light-mode nav a:hover, .light-mode nav a.active {
+      background: linear-gradient(45deg, #d32f2f, #f44336);
+      box-shadow: 0 0 15px #f44336;
+      color: #fff;
+      text-shadow: none;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 32px auto 80px;
+      padding: 0 28px;
+      background-color: rgba(40, 0, 0, 0.7);
+      border-radius: 28px;
+      box-shadow: 0 0 40px #ff000066 inset;
+      backdrop-filter: blur(6px);
+      color: var(--text-dark);
+      position: relative;
+      z-index: 5;
+      transition: background-color 0.5s ease, color 0.5s ease;
+      display: none; /* Hide main initially - show after login */
+    }
+
+    .light-mode main {
+      background-color: #fff;
+      color: var(--text-light);
+      box-shadow: 0 0 30px rgba(0,0,0,0.2) inset;
+    }
+    
+    /* Sections styling */
+    section {
+      padding: 36px 32px;
+      border-radius: 18px;
+      background: rgba(80, 0, 0, 0.45);
+      box-shadow: 0 0 28px #ff0000aa;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.5s ease, box-shadow 0.5s ease;
+    }
+    .light-mode section {
+      background: #fdf0f0;
+      box-shadow: 0 0 18px rgba(244, 67, 54, 0.4);
+    }
+    section h2 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      margin-bottom: 28px;
+      color: var(--red-light);
+      text-shadow: 0 0 18px #ff2323cc;
+      letter-spacing: 1.7px;
+      font-family: 'Arial Black', Gadget, sans-serif;
+      text-align: center;
+      transition: color 0.5s ease, text-shadow 0.5s ease;
+    }
+    .light-mode section h2 {
+      color: #c62828;
+      text-shadow: none;
+    }
+    
+    /* Dashboard cards */
+    .dashboard {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      padding-bottom: 16px;
+    }
+    .card {
+      background: radial-gradient(circle at center, #ff4c4c, #a60000);
+      border-radius: 50% 60% 50% 60% / 60% 50% 60% 50%;
+      box-shadow: 0 0 30px #ff0000aa inset;
+      width: 210px;
+      height: 210px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #ffe4e4;
+      font-weight: 900;
+      font-size: 2.8rem;
+      position: relative;
+      user-select: none;
+      cursor: default;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 60px #ff5555aa, 0 0 40px #ff0000cc inset;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 20px;
+      width: 170px;
+      height: 110px;
+      background: radial-gradient(circle, rgba(255, 77, 77, 0.35), transparent 70%);
+      filter: blur(32px);
+      z-index: -1;
+      border-radius: 50%;
+    }
+    .card .label {
+      font-size: 1.4rem;
+      text-shadow: 0 0 10px #8b0000;
+      margin-bottom: 14px;
+    }
+    
+    /* Red sparkles */
+    .form-sparkles {
+      position: relative;
+      overflow: visible;
+    }
+    .sparkle {
+      position: absolute;
+      background: radial-gradient(circle, rgba(255, 0, 0, 0.8) 0%, rgba(255, 0, 0, 0) 60%);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: sparkleAnim 3s infinite ease-in-out;
+      mix-blend-mode: screen;
+      filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.8));
+    }
+    @keyframes sparkleAnim {
+      0%, 100% {
+        opacity: 0.7;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.6);
+      }
+    }
+    .sparkle:nth-child(1) { width: 8px; height: 8px; top: 10%; left: 20%; animation-delay: 0s; }
+    .sparkle:nth-child(2) { width: 12px; height: 12px; top: 40%; left: 60%; animation-delay: 1.1s; }
+    .sparkle:nth-child(3) { width: 10px; height: 10px; top: 70%; left: 30%; animation-delay: 2s; }
+    .sparkle:nth-child(4) { width: 6px; height: 6px; top: 25%; left: 80%; animation-delay: 1.6s; }
+    .sparkle:nth-child(5) { width: 15px; height: 15px; top: 55%; left: 80%; animation-delay: 2.5s; }
+    
+    /* Forms styled with blood-red theme */
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px 38px;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 24px;
+      background: radial-gradient(circle at center, #ff4c4c, #a6000022);
+      border-radius: 30px;
+      box-shadow: 0 0 40px #ff0000bb inset;
+      position: relative;
+      color: #fff;
+    }
+    .light-mode form {
+      background: #fceaea;
+      color: #8b0000;
+      box-shadow: 0 0 20px #d43f3f66 inset;
+    }
+    input, select {
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: none;
+      font-size: 1.05rem;
+      color: #440000;
+      font-weight: 700;
+      background: #ffe6e6cc;
+      transition: box-shadow 0.25s ease, background-color 0.3s ease;
+      box-shadow: inset 0 0 8px #ff000022;
+    }
+    .light-mode input, .light-mode select {
+      background: #fff2f2;
+      color: #6a1919;
+      box-shadow: inset 0 0 10px #d32f2f44;
+    }
+    input:focus, select:focus {
+      outline: none;
+      box-shadow: inset 0 0 20px #ff5050;
+      background: #ffdeded6;
+      color: #730000;
+    }
+    .light-mode input:focus, .light-mode select:focus {
+      background: #fbeaea;
+      box-shadow: inset 0 0 14px #d32f2f;
+    }
+    label {
+      font-weight: 800;
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+      color: #ffe1e1;
+      text-shadow: 0 0 8px #ff3c3c;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+    .light-mode label {
+      color: #aa0000;
+      text-shadow: none;
+    }
+    button[type=submit] {
+      grid-column: span 2;
+      padding: 16px 0;
+      font-size: 1.3rem;
+      font-weight: 800;
+      border-radius: 24px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(145deg, #ff0000cc, #d100004f);
+      color: #fff;
+      box-shadow: 0 0 18px #ff0000bb;
+      user-select: none;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    button[type=submit]:hover {
+      background: linear-gradient(135deg, #ff5959, #ff3030);
+      box-shadow: 0 0 30px #ff5959cc;
+    }
+    .light-mode button[type=submit] {
+      background: linear-gradient(145deg, #b71c1ccc, #ef5353cc);
+      color: #fff;
+      box-shadow: 0 0 15px #b71c1ccc;
+    }
+    .light-mode button[type=submit]:hover {
+      background: linear-gradient(135deg, #d32f2fcc, #ef5353cc);
+      box-shadow: 0 0 30px #ef5353cc;
+    }
+    
+    /* Result messages */
+    #donorMsg, #requestMsg, #bloodResults, #donorSearchResults {
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-top: 20px;
+      color: #ff5858;
+      text-shadow: 0 0 12px #ff0000cc;
+      min-height: 30px;
+      user-select: text;
+    }
+    .light-mode #donorMsg, .light-mode #requestMsg, .light-mode #bloodResults, .light-mode #donorSearchResults {
+      color: #b33b3b;
+      text-shadow: none;
+    }
+    
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #440000;
+      background: #ffe6e6a0;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 0 12px #ff8080a0;
+      user-select: text;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+    .light-mode table {
+      background: #fff0f0;
+      color: #5d0606;
+      box-shadow: 0 0 10px #e5737330;
+    }
+    th, td {
+      padding: 14px 18px;
+      border-bottom: 1px solid #ff9999a0;
+      text-align: left;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+    .light-mode th, .light-mode td {
+      border-color: #ef9a9a70;
+    }
+    th {
+      background: #ff1a1aba;
+      color: #ffcccc;
+      font-weight: 900;
+      text-shadow: 0 0 6px #ff4a4a;
+    }
+    .light-mode th {
+      background: #f4433630;
+      color: #b71c1c;
+      text-shadow: none;
+    }
+    tr:hover {
+      background: #ffb3b3bb;
+    }
+    .light-mode tr:hover {
+      background: #f8c6c634;
+    }
+    
+    /* Pagination buttons */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 14px;
+    }
+    .page-btn {
+      padding: 10px 16px;
+      border-radius: 14px;
+      border: none;
+      background: #b30000b0;
+      color: #fff4f4cc;
+      cursor: pointer;
+      font-weight: 900;
+      box-shadow: 0 0 10px #cc0000cc;
+      transition: background-color 0.3s ease;
+      user-select:none;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+    .light-mode .page-btn {
+      background: #d32f2fc4;
+      color: #fff;
+      box-shadow: 0 0 8px #e57373cc;
+    }
+    .page-btn:hover {
+      background: #ff0000d4;
+      box-shadow: 0 0 18px #ff0a0ad4;
+    }
+    .light-mode .page-btn:hover {
+      background: #b71c1cd4;
+      box-shadow: 0 0 15px #c62828d4;
+    }
+    .page-btn.disabled {
+      cursor: default;
+      background: #5f00009c;
+      box-shadow: none;
+    }
+    .light-mode .page-btn.disabled {
+      background: #d7a7a78c;
+      color: #4a0404;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .dashboard {
+        gap: 36px;
+      }
+      .card {
+        width: 180px;
+        height: 180px;
+        font-size: 2.2rem;
+      }
+      .card .label {
+        font-size: 1.25rem;
+      }
+    }
+    @media (max-width: 600px) {
+      .dashboard {
+        flex-direction: column;
+        gap: 40px;
+      }
+      form {
+        grid-template-columns: 1fr !important;
+      }
+    }
+    
+    /* Dark/Light toggle button */
+    #modeToggleBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: var(--red-dark);
+      border: none;
+      border-radius: 32px;
+      width: 56px;
+      height: 56px;
+      cursor: pointer;
+      box-shadow: 0 0 12px var(--red-light);
+      color: #fff;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.5s ease;
+      z-index: 1000;
+      user-select: none;
+    }
+    .light-mode #modeToggleBtn {
+      background-color: var(--red-light);
+      color: #550000;
+      box-shadow: 0 0 15px var(--red-dark);
+    }
+    #modeToggleBtn:hover {
+      background-color: #ff1a1a;
+    }
+    .light-mode #modeToggleBtn:hover {
+      background-color: #f44336;
+    }
+    
+    /* Registration and Login sections */
+    #register, #login {
+      max-width: 480px;
+      margin: 40px auto 40px;
+      padding: 32px 28px;
+      background: radial-gradient(circle at center, #a60000cc 60%, #ff4c4ccc 100%);
+      border-radius: 24px;
+      box-shadow: 0 0 35px #ff0000aa;
+      color: #fff;
+      position: relative;
+      display: none;
+    }
+    #register label, #login label {
+      display:block;
+      margin:16px 0 8px 0;
+      font-weight:700;
+    }
+    #register input, #login input, #register select {
+      padding:12px 16px;
+      width:94%;
+      margin-bottom:16px;
+      border-radius:8px;
+      border:none;
+      background:#ffeaea;
+      color:#610000;
+      font-weight:600;
+      font-size:1rem;
+    }
+    #register button, #login button {
+      width:100%;
+      padding:14px 0;
+      margin-top:12px;
+      font-weight:700;
+      background:linear-gradient(145deg,#c40000,#ff4757);
+      color:#fff;
+      border:none;
+      border-radius:8px;
+      box-shadow:0 0 10px #ff6a6a;
+      font-size:1.17rem;
+      cursor:pointer;
+      transition:background 0.2s;
+    }
+    #register button:hover, #login button:hover {
+      background:linear-gradient(145deg,#ff2323,#c40000);
+    }
+    #loginMsg,#registerMsg {
+      margin-top:14px;
+      color:#ffe1e1;
+      font-weight:bold;
+      min-height:16px;
+      text-shadow: 0 0 12px #ff0000dd;
+    }
+    #register .reg-switch, #login .login-switch {
+      margin-top:14px;
+      background:none;
+      border:none;
+      color:#fad4d4;
+      text-decoration:underline;
+      cursor:pointer;
+      font-size:1rem;
+      font-family:inherit;
+    }
+    #blood-bg-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+  transition: opacity 0.5s;
+}
+.light-mode #blood-bg-canvas {
+  opacity: 0.35;
+}
+.background-overlay {
+  z-index: 1;
+}
+header, main, footer, #register, #login {
+  position: relative;
+  z-index: 2;
+}
+  </style>
+</head>
+<body class="dark-mode">
+  <canvas id="blood-bg-canvas"></canvas>
+  <div class="background-overlay"></div>
+  <header>
+    <h1>RUDHIRA (Blood) Portal</h1>
+    <h3>Share the gift of life</h3>
+    <nav>
+      <a id="nav-home" class="active" onclick="showSection('home')">Home</a>
+      <a id="nav-find-blood" onclick="showSection('find-blood')">Find Blood</a>
+      <a id="nav-donor-registration" onclick="showSection('donor-registration')">Donor Registration</a>
+      <a id="nav-blood-requests" onclick="showSection('blood-requests')">Blood Requests</a>
+      <a id="nav-donor-search" onclick="showSection('donor-search')">Donor Search</a>
+    </nav>
+  </header>
+
+  <!-- Registration Section -->
+  <section id="register">
+    <h2>Register</h2>
+    <form id="registerForm" onsubmit="registerUser(event)">
+      <label>Name</label>
+      <input type="text" id="regName" required />
+      <label>Email</label>
+      <input type="email" id="regEmail" required />
+      <label>Password</label>
+      <input type="password" id="regPassword" required />
+      <label>Role</label>
+      <select id="regRole" required>
+        <option value="">Select</option>
+        <option value="Admin">Admin</option>
+        <option value="Donor">Donor</option>
+        <option value="Requester">Requester</option>
+      </select>
+      <button type="submit">Register</button>
+    </form>
+    <div id="registerMsg"></div>
+    <button class="reg-switch" onclick="showLogin()">Already Registered? Login</button>
+  </section>
+
+  <!-- Login Section -->
+  <section id="login">
+    <h2>Login</h2>
+    <form id="loginForm" onsubmit="loginUserForm(event)">
+      <label>Email</label>
+      <input type="email" id="loginEmail" required />
+      <label>Password</label>
+      <input type="password" id="loginPassword" required />
+      <button type="submit">Login</button>
+    </form>
+    <div id="loginMsg"></div>
+    <button class="login-switch" onclick="showRegister()">New User? Register</button>
+  </section>
+
+  <main id="main">
+    <section id="home" class="active-section">
+      <h2>Dashboard Overview</h2>
+      <div class="dashboard">
+        <div class="card" id="total-donors">
+          <div class="label">Donors</div>
+          <div class="value">0</div>
+        </div>
+        <div class="card" id="total-requests">
+          <div class="label">Requests</div>
+          <div class="value">0</div>
+        </div>
+        <div class="card" id="stock-summary">
+          <div class="label">Stock</div>
+          <div class="value">Loading...</div>
+        </div>
+      </div>
+      <p class="intro">
+        Welcome to RUDHIRA a Blood Portal, your trusted platform for donor and blood bank management to save lives. Every drop you give is a drop of courage, life, and love flowing into the world.Donate blood, because every second counts and every drop matters more than words. Heroes don’t always wear capes. Sometimes, they just roll up their sleeves."Be the reason someone takes their next breath—donate blood today and change lives forever.Transform your blood into a miracle — the magic medicine that saves lives instantly.
+      </p>
+    </section>
+
+    <section id="find-blood" class="form-sparkles" style="display:none">
+      <h2>Find Blood Availability</h2>
+      <form onsubmit="searchBlood(event)">
+        <select id="bloodGroupSelect" required>
+          <option value="">Select Blood Group</option>
+          <option value="A+">A+</option><option value="A-">A-</option>
+          <option value="B+">B+</option><option value="B-">B-</option>
+          <option value="AB+">AB+</option><option value="AB-">AB-</option>
+          <option value="O+">O+</option><option value="O-">O-</option>
+        </select>
+        <button type="submit">Search</button>
+      </form>
+      <div id="bloodResults"></div>
+      <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
+    </section>
+
+    <section id="donor-registration" class="form-sparkles" style="display:none">
+      <h2>Donor Registration</h2>
+      <form onsubmit="registerDonor(event)">
+        <label for="donorName">Full Name</label>
+        <input id="donorName" type="text" required />
+        <label for="donorPhone">Phone Number</label>
+        <input id="donorPhone" type="tel" required />
+        <label for="donorBloodGroup">Blood Group</label>
+        <select id="donorBloodGroup" required>
+          <option value="">Select Blood Group</option>
+          <option value="A+">A+</option><option value="A-">A-</option>
+          <option value="B+">B+</option><option value="B-">B-</option>
+          <option value="AB+">AB+</option><option value="AB-">AB-</option>
+          <option value="O+">O+</option><option value="O-">O-</option>
+        </select>
+        <label for="donorCity">City</label>
+        <input id="donorCity" type="text" required />
+        <button type="submit">Register as Donor</button>
+      </form>
+      <div id="donorMsg"></div>
+      <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
+    </section>
+
+    <section id="blood-requests" class="form-sparkles" style="display:none">
+      <h2>Request Blood</h2>
+      <form onsubmit="requestBlood(event)">
+        <label for="requestName">Full Name</label>
+        <input id="requestName" type="text" required />
+        <label for="requestPhone">Phone Number</label>
+        <input id="requestPhone" type="tel" required />
+        <label for="requestBloodGroup">Blood Group Required</label>
+        <select id="requestBloodGroup" required>
+          <option value="">Select Blood Group</option>
+          <option value="A+">A+</option><option value="A-">A-</option>
+          <option value="B+">B+</option><option value="B-">B-</option>
+          <option value="AB+">AB+</option><option value="AB-">AB-</option>
+          <option value="O+">O+</option><option value="O-">O-</option>
+        </select>
+        <label for="requestCity">City</label>
+        <input id="requestCity" type="text" required />
+        <button type="submit">Submit Request</button>
+      </form>
+      <div id="requestMsg"></div>
+      <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
+    </section>
+
+    <section id="donor-search" class="form-sparkles" style="display:none">
+      <h2>Search Donors</h2>
+      <form id="donorSearchForm" onsubmit="searchDonors(event)">
+        <input type="text" id="donorSearchInput" placeholder="Search by name, blood group or city" />
+        <button id="donorSearchBtn" type="submit">Search</button>
+      </form>
+      <div id="donorSearchResults"></div>
+      <div class="pagination" id="donorPagination"></div>
+      <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
+    </section>
+  </main>
+
+  <footer style="background-color:#222; color:#ccc; padding: 30px 20px; font-family: Arial, sans-serif;">
+    <div style="max-width:1200px; margin:auto; display:flex; flex-wrap:wrap; justify-content:space-between; gap:20px;">
+      <div style="flex:1 1 200px; min-width:200px;">
+        <h3 style="color:#f44336;">Contact Information</h3>
+        <p>Phone: +91 7755866281</p>
+        <p>Email: csds23135@glbitm.ac.in</p>
+        <p>Address: 123 G.L.Bajaj institute of technoogy and management,G.B.Nagar,INDIA</p>
+      </div>
+      <div style="flex:1 1 150px; min-width:150px;">
+        <h3 style="color:#f44336;">Quick Links</h3>
+        <ul style="list-style:none; padding:0;">
+          <li><a href="Index.html" style="color:#ccc; text-decoration:none;">Home</a></li>
+          <li><a href="About.html" style="color:#ccc; text-decoration:none;">About Us</a></li>
+          <li><a href="Donate.html" style="color:#ccc; text-decoration:none;">Donate Blood</a></li>
+          <li><a href="Request.html" style="color:#ccc; text-decoration:none;">Request Blood</a></li>
+          <li><a href="Faq.html" style="color:#ccc; text-decoration:none;">FAQs</a></li>
+          <li><a href="Contact.html" style="color:#ccc; text-decoration:none;">Contact Us</a></li>
+        </ul>
+      </div>
+      <div style="flex:1 1 200px; min-width:200px;">
+        <h3 style="color:#f44336;">Connect with Us</h3>
+        <p>
+          <a href="https://www.facebook.com/share/1CnMYTTeof/" style="color:#ccc; margin-right:10px; text-decoration:none;">Facebook</a>
+          <a href="#" style="color:#ccc; margin-right:10px; text-decoration:none;">Twitter</a>
+          <a href="https://www.instagram.com/_sachin_.singh_0?igsh=MXZ2aW1memNuZnR5ag==" style="color:#ccc; margin-right:10px; text-decoration:none;">Instagram</a>
+          <a href="https://www.linkedin.com/in/ritesh-kumar-singh-69b636322?utm_source=share_via&utm_content=profile&utm_medium=member_android" style="color:#ccc; text-decoration:none;">LinkedIn</a>
+        </p>
+        <h2 style="color:#f44336; margin-top:20px;">Emergency Helpline</h2>
+        <p style="font-size:1.2em; font-weight:bold;">24/7 Blood Request: +91 7755866281  , +91 9305589182</p>
+      </div>
+      <div style="flex:1 1 250px; min-width:250px;">
+        <h3 style="color:#f44336;">Newsletter</h3>
+        <p>Subscribe to get latest news and updates:</p>
+        <form action="#" method="post" style="display:flex;">
+          <input type="email" name="email" placeholder="Enter your email" required style="flex:1; padding:8px; border-radius:4px 0 0 4px; border: none;">
+          <button type="submit" style="background:#f44336; border:none; color:white; padding:8px 15px; border-radius:0 4px 4px 0; cursor:pointer;">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div style="max-width:1200px; margin:auto; margin-top:30px; border-top:1px solid #444; padding-top:20px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;">
+      <div style="flex:1 1 200px; min-width:200px; color:#bbb;">
+        <strong>Operating Hours:</strong> Mon - Sun: 9:00 AM - 10:00 PM
+      </div>
+      <div style="flex:1 1 300px; min-width:300px; text-align:center; color:#ff6666; font-weight:bold;">
+        Donate Blood, Save Lives – Be a Hero Today!
+      </div>
+      <div style="flex:1 1 200px; min-width:200px; text-align:right; color:#bbb;">
+        <a href="Privacy.html" style="color:#bbb; text-decoration:none; margin-right:15px;">Privacy Policy</a>
+        <a href="Terms.html" style="color:#bbb; text-decoration:none; margin-right:15px;">Terms & Conditions</a>
+        <a href="Disclaimer.html" style="color:#bbb; text-decoration:none;">Disclaimer</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="modeToggleBtn" title="Toggle Dark/Light Mode">☀️</button>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('main section').forEach(s => s.style.display = s.id === id ? 'block' : 'none');
+      document.querySelectorAll('nav a').forEach(nav => nav.classList.toggle('active', nav.id === 'nav-' + id));
+      clearMessages();
+      if (id === 'home') loadDashboard();
+    }
+    function clearMessages() {
+      ['donorMsg', 'requestMsg', 'bloodResults', 'donorSearchResults', 'donorPagination'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = '';
+      });
+    }
+    function loadDashboard() {
+      google.script.run.withSuccessHandler(function(stats) {
+        document.querySelector("#total-donors .value").textContent = stats.totalDonors;
+        document.querySelector("#total-requests .value").textContent = stats.totalRequests;
+        document.querySelector("#stock-summary .value").textContent = stats.bloodStock.map(b => b.bloodGroup + ' (' + b.units + ')').join(', ');
+      }).getDashboardStats('Admin');
+    }
+    function searchBlood(event) {
+      event.preventDefault();
+      const group = document.getElementById('bloodGroupSelect').value;
+      const results = document.getElementById('bloodResults');
+      if (!group) { results.textContent = "Please select a blood group."; return; }
+      google.script.run.withSuccessHandler(function(stock) {
+        const b = stock.find(x => x.bloodGroup === group);
+        if (!b) { results.textContent = "No stock available for " + group; return; }
+        results.innerHTML = `<table border="1" cellpadding="8" cellspacing="0" style="width:100%;border-collapse:collapse;">
+          <thead><tr><th>Blood Group</th><th>Units Available</th></tr></thead>
+          <tbody><tr><td>${b.bloodGroup}</td><td>${b.units}</td></tr></tbody>
+        </table>`;
+      }).getBloodStock();
+    }
+    function registerDonor(event) {
+      event.preventDefault();
+      const name = document.getElementById('donorName').value.trim();
+      const phone = document.getElementById('donorPhone').value.trim();
+      const bloodGroup = document.getElementById('donorBloodGroup').value;
+      const city = document.getElementById('donorCity').value.trim();
+      const msg = document.getElementById('donorMsg');
+      if (!name || !phone || !bloodGroup || !city) {
+        msg.textContent = 'Please fill all donor registration fields.';
+        msg.style.color = 'red';
+        return;
+      }
+      google.script.run.withSuccessHandler(function(res) {
+        if (res === 'success') {
+          msg.textContent = `Thank you for registering as a donor, ${name}!`;
+          msg.style.color = 'lightgreen';
+          event.target.reset();
+        } else {
+          msg.textContent = res;
+          msg.style.color = 'red';
+        }
+      }).registerDonor(name, phone, bloodGroup, city);
+    }
+    function requestBlood(event) {
+      event.preventDefault();
+      const name = document.getElementById('requestName').value.trim();
+      const phone = document.getElementById('requestPhone').value.trim();
+      const bloodGroup = document.getElementById('requestBloodGroup').value;
+      const city = document.getElementById('requestCity').value.trim();
+      const msg = document.getElementById('requestMsg');
+      if (!name || !phone || !bloodGroup || !city) {
+        msg.textContent = 'Please fill all blood request fields.';
+        msg.style.color = 'red';
+        return;
+      }
+      google.script.run.withSuccessHandler(function(res) {
+        if (res === 'success') {
+          msg.textContent = `Blood request for ${bloodGroup} submitted successfully.`;
+          msg.style.color = 'lightgreen';
+          event.target.reset();
+        } else {
+          msg.textContent = res;
+          msg.style.color = 'red';
+        }
+      }).registerRequest(name, phone, bloodGroup, city);
+    }
+    let currentPage = 1;
+    const pageSize = 5;
+    function renderDonorSearchResults(items, total) {
+      const container = document.getElementById('donorSearchResults');
+      if (items.length === 0) {
+        container.innerHTML = '<p>No donors found.</p>';
+        document.getElementById('donorPagination').innerHTML = '';
+        return;
+      }
+      let html = `<table><thead><tr><th>Name</th><th>Phone</th><th>Blood Group</th><th>City</th></tr></thead><tbody>`;
+      items.forEach(row => {
+        html += `<tr><td>${row[1]}</td><td>${row[2]}</td><td>${row[3]}</td><td>${row[4]}</td></tr>`;
+      });
+      html += '</tbody></table>';
+      container.innerHTML = html;
+      const pages = Math.ceil(total / pageSize);
+      let paginationHtml = '';
+      for (let i = 1; i <= pages; i++) {
+        paginationHtml += `<button class="page-btn${i === currentPage ? '' : ''}" onclick="searchDonorsPage(${i})">${i}</button>`;
+      }
+      document.getElementById('donorPagination').innerHTML = paginationHtml;
+    }
+    function searchDonorsPage(page) {
+      currentPage = page;
+      const filter = document.getElementById('donorSearchInput').value.trim();
+      google.script.run.withSuccessHandler(function(res) {
+        renderDonorSearchResults(res.items, res.total);
+      }).searchDonors(filter, page, pageSize, 'Admin');
+    }
+    function searchDonors(event) {
+      event.preventDefault();
+      currentPage = 1;
+      searchDonorsPage(1);
+    }
+    const modeToggleBtn = document.getElementById('modeToggleBtn');
+    function setTheme(themeName) {
+      if (themeName === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.body.classList.remove('light-mode');
+        modeToggleBtn.textContent = '☀️';
+      } else {
+        document.body.classList.add('light-mode');
+        document.body.classList.remove('dark-mode');
+        modeToggleBtn.textContent = '🌙';
+      }
+      localStorage.setItem('theme', themeName);
+    }
+    function toggleTheme() {
+      if (document.body.classList.contains('dark-mode')) {
+        setTheme('light');
+      } else {
+        setTheme('dark');
+      }
+    }
+    modeToggleBtn.addEventListener('click', toggleTheme);
+
+    // Login/Register UI control
+    function showLogin() {
+      document.getElementById('login').style.display = 'block';
+      document.getElementById('register').style.display = 'none';
+      document.getElementById('main').style.display = 'none';
+    }
+    function showRegister() {
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('register').style.display = 'block';
+      document.getElementById('main').style.display = 'none';
+    }
+
+    function registerUser(event) {
+      event.preventDefault();
+      const name = document.getElementById('regName').value;
+      const email = document.getElementById('regEmail').value;
+      const password = document.getElementById('regPassword').value;
+      const role = document.getElementById('regRole').value;
+      google.script.run.withSuccessHandler(function (res) {
+        document.getElementById('registerMsg').textContent =
+          res === 'success' ? "Registered! Please login." : res;
+        if (res === 'success') showLogin();
+      }).registerUser(name, email, password, role);
+    }
+
+    function loginUserForm(event) {
+      event.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      google.script.run.withSuccessHandler(function (res) {
+        if (res.success) {
+          document.getElementById('login').style.display = 'none';
+          document.getElementById('main').style.display = 'block';
+          showSection('home');
+        } else {
+          document.getElementById('loginMsg').textContent = "Invalid credentials!";
+        }
+      }).loginUser(email, password);
+    }
+
+    window.onload = () => {
+      showLogin();
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        setTheme(savedTheme);
+      } else {
+        setTheme('dark');
+      }
+    };
+    const canvas = document.getElementById('blood-bg-canvas');
+const ctx = canvas.getContext('2d');
+let W = window.innerWidth;
+let H = window.innerHeight;
+
+const NUM_CELLS = 20;
+const NUM_PLATELETS = 15;
+
+function rand(a,b) { return Math.random()*(b - a) + a; }
+function randSign() { return Math.random() < 0.5 ? -1 : 1; }
+
+function resize() {
+  W = window.innerWidth;
+  H = window.innerHeight;
+  canvas.width = W;
+  canvas.height = H;
+}
+
+let bloodCells = [];
+let platelets = [];
+
+function init() {
+  bloodCells = [];
+  platelets = [];
+  for(let i=0; i < NUM_CELLS; i++) {
+    bloodCells.push({
+      x: rand(-80, W+80),
+      y: rand(-80, H+80),
+      r: rand(18,38),
+      angle: rand(0, 2*Math.PI),
+      speedX: rand(0.5,1.8)*randSign(),
+      speedY: rand(-0.4,0.4),
+      rotSpeed: rand(-0.009,0.009)
+    });
+  }
+  for(let i=0; i < NUM_PLATELETS; i++) {
+    platelets.push({
+      x: rand(-40, W+40),
+      y: rand(-40, H+40),
+      r: rand(8,18),
+      angle: rand(0, 2*Math.PI),
+      speedX: rand(0.8,1.2),
+      speedY: rand(-0.2,0.2),
+      rotSpeed: rand(-0.01,0.01)
+    });
+  }
+}
+
+function drawBloodCell(cell) {
+  ctx.save();
+  ctx.translate(cell.x, cell.y);
+  ctx.rotate(cell.angle);
+  let grd = ctx.createRadialGradient(0,0,cell.r*0.5, 0,0,cell.r);
+  grd.addColorStop(0,"#f44336");
+  grd.addColorStop(0.5,"#c61e1e");
+  grd.addColorStop(1,"#a60000cc");
+  ctx.fillStyle = grd;
+  ctx.beginPath();
+  ctx.ellipse(0,0, cell.r*1.1, cell.r*0.75, 0, 0, 2*Math.PI);
+  ctx.fill();
+  ctx.globalAlpha = 0.14;
+  ctx.beginPath();
+  ctx.ellipse(-cell.r*0.2, -cell.r*0.15, cell.r*0.25, cell.r*0.16, 0, 0, 2*Math.PI);
+  ctx.fillStyle = "#fff";
+  ctx.fill();
+  ctx.globalAlpha = 1;
+  ctx.restore();
+}
+
+function drawPlatelet(p) {
+  ctx.save();
+  ctx.translate(p.x, p.y);
+  ctx.rotate(p.angle);
+  ctx.globalAlpha = 0.3;
+  ctx.beginPath();
+  ctx.ellipse(0, 0, p.r*1.1, p.r*0.65, 0, 0, 2*Math.PI);
+  ctx.fillStyle = "#faf189";
+  ctx.fill();
+  ctx.globalAlpha = 0.25;
+  ctx.beginPath();
+  ctx.ellipse(-p.r*0.3, p.r*0.14, p.r*0.6, p.r*0.2, 0, 0, 2*Math.PI);
+  ctx.fillStyle = "#ffeebb";
+  ctx.fill();
+  ctx.globalAlpha = 1;
+  ctx.restore();
+}
+
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+  bloodCells.forEach(cell => {
+    cell.x += cell.speedX;
+    cell.y += cell.speedY;
+    cell.angle += cell.rotSpeed;
+    if(cell.x > W + 90) cell.x = -90;
+    if(cell.x < -90) cell.x = W + 90;
+    if(cell.y > H + 90) cell.y = -90;
+    if(cell.y < -90) cell.y = H + 90;
+    drawBloodCell(cell);
+  });
+  platelets.forEach(p => {
+    p.x += p.speedX;
+    p.y += p.speedY;
+    p.angle += p.rotSpeed;
+    if(p.x > W + 70) p.x = -70;
+    if(p.x < -70) p.x = W + 70;
+    if(p.y > H + 70) p.y = -70;
+    if(p.y < -70) p.y = H + 70;
+    drawPlatelet(p);
+  });
+  requestAnimationFrame(animate);
+}
+
+resize();
+init();
+animate();
+
+window.addEventListener('resize', () => {
+  resize();
+  init();
+});
+  </script>
+</body>
+</html>
+
+
+
